@@ -45,7 +45,7 @@ class DetectorFactory(object):
 
             f = None
             try:
-                f = open(filename, 'rb')
+                f = open(filename, 'r')
                 json_data = json.load(f)
                 profile = LangProfile(**json_data)
                 self.add_profile(profile, index, langsize)

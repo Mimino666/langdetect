@@ -1,6 +1,8 @@
-from itertools import izip
 import random
 import re
+
+import six
+from six.moves import zip, xrange
 
 from .lang_detect_exception import ErrorCode, LangDetectException
 from .language import Language
@@ -116,7 +118,7 @@ class Detector(object):
         for ch in self.text:
             if 'A' <= ch <= 'z':
                 latin_count += 1
-            elif ch >= u'\u0300' and unicode_block(ch) != 'Latin Extended Additional':
+            elif ch >= six.u('\u0300') and unicode_block(ch) != 'Latin Extended Additional':
                 non_latin_count += 1
 
         if latin_count * 2 < non_latin_count:
@@ -160,12 +162,12 @@ class Detector(object):
                     if self._normalize_prob(prob) > self.CONV_THRESHOLD or i >= self.ITERATION_LIMIT:
                         break
                     if self.verbose:
-                        print '> %s' % self._sort_probability(prob)
+                        six.print_('>', self._sort_probability(prob))
                 i += 1
             for j in xrange(len(self.langprob)):
                 self.langprob[j] += prob[j] / self.n_trial
             if self.verbose:
-                print '==> %s' % self._sort_probability(prob)
+                six.print_('==>', self._sort_probability(prob))
 
     def _init_probability(self):
         '''Initialize the map of language probabilities.
@@ -195,7 +197,7 @@ class Detector(object):
 
         lang_prob_map = self.word_lang_prob_map[word]
         if self.verbose:
-            print '%s(%s): %s' % (word, self._unicode_encode(word), self._word_prob_to_string(lang_prob_map))
+            six.print_('%s(%s): %s' % (word, self._unicode_encode(word), self._word_prob_to_string(lang_prob_map)))
 
         weight = alpha / self.BASE_FREQ
         for i in xrange(len(prob)):
@@ -222,14 +224,14 @@ class Detector(object):
         return maxp
 
     def _sort_probability(self, prob):
-        result = [Language(lang, p) for (lang, p) in izip(self.langlist, prob) if p > self.PROB_THRESHOLD]
-        result.sort()
+        result = [Language(lang, p) for (lang, p) in zip(self.langlist, prob) if p > self.PROB_THRESHOLD]
+        result.sort(reverse=True)
         return result
 
     def _unicode_encode(self, word):
         buf = ''
         for ch in word:
-            if ch >= u'\u0080':
+            if ch >= six.u('\u0080'):
                 st = hex(0x10000 + ord(ch))[2:]
                 while len(st) < 4:
                     st = '0' + st

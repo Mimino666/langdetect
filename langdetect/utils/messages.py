@@ -6,10 +6,10 @@ class Messages(object):
 
     def __init__(self):
         self.messages = {}
-        with open(self.MESSAGES_FILENAME, 'rb') as f:
+        with open(self.MESSAGES_FILENAME, 'r') as f:
             for line in f:
                 key, _, value = line.strip().partition('=')
-                self.messages[key] = value.decode('unicode_escape')
+                self.messages[key] = value.encode().decode('unicode_escape')
 
     def get_string(self, key):
         return self.messages.get(key, '!%s!' % key)

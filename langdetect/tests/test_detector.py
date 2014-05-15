@@ -1,5 +1,7 @@
 import unittest
 
+import six
+
 from langdetect.detector_factory import DetectorFactory
 from langdetect.utils.lang_profile import LangProfile
 
@@ -7,7 +9,7 @@ from langdetect.utils.lang_profile import LangProfile
 class DetectorTest(unittest.TestCase):
     TRAINING_EN = 'a a a b b c c d e'
     TRAINING_FR = 'a b b c c c d d d'
-    TRAINING_JA = u'\u3042 \u3042 \u3042 \u3044 \u3046 \u3048 \u3048'
+    TRAINING_JA = six.u('\u3042 \u3042 \u3042 \u3044 \u3046 \u3048 \u3048')
     JSON_LANG1 = '{"freq":{"A":3,"B":6,"C":3,"AB":2,"BC":1,"ABC":2,"BBC":1,"CBA":1},"n_words":[12,3,4],"name":"lang1"}'
     JSON_LANG2 = '{"freq":{"A":6,"B":3,"C":3,"AA":3,"AB":2,"ABC":1,"ABA":1,"CAA":1},"n_words":[12,5,3],"name":"lang2"}'
 
@@ -46,7 +48,7 @@ class DetectorTest(unittest.TestCase):
 
     def test_detector4(self):
         detect = self.factory.create()
-        detect.append(u'\u3042\u3042\u3042\u3042a')
+        detect.append(six.u('\u3042\u3042\u3042\u3042a'))
         self.assertEqual(detect.detect(), 'ja')
 
     def test_lang_list(self):

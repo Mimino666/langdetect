@@ -1,5 +1,7 @@
 import re
 
+import six
+
 from . import messages
 from .unicode_block import unicode_block
 
@@ -56,28 +58,28 @@ class NGram(object):
                 ch = ' '
         elif block == 'Latin Extended-B':
             # normalization for Romanian
-            if ch == u'\u0219':  # Small S with comma below => with cedilla
-                ch = u'\u015f'
-            if ch == u'\u021b':  # Small T with comma below => with cedilla
-                ch = u'\u0163'
+            if ch == six.u('\u0219'):  # Small S with comma below => with cedilla
+                ch = six.u('\u015f')
+            if ch == six.u('\u021b'):  # Small T with comma below => with cedilla
+                ch = six.u('\u0163')
         elif block == 'General Punctuation':
             ch = ' '
         elif block == 'Arabic':
-            if ch == u'\u06cc':
-                ch = u'\u064a'  # Farsi yeh => Arabic yeh
+            if ch == six.u('\u06cc'):
+                ch = six.u('\u064a')  # Farsi yeh => Arabic yeh
         elif block == 'Latin Extended Additional':
-            if ch >= u'\u1ea0':
-                ch = u'\u1ec3'
+            if ch >= six.u('\u1ea0'):
+                ch = six.u('\u1ec3')
         elif block == 'Hiragana':
-            ch = u'\u3042'
+            ch = six.u('\u3042')
         elif block == 'Katakana':
-            ch = u'\u30a2'
+            ch = six.u('\u30a2')
         elif block == 'Bopomofo' or block == 'Bopomofo Extended':
-            ch = u'\u3105'
+            ch = six.u('\u3105')
         elif block == 'CJK Unified Ideographs':
             ch = NGram.CJK_MAP.get(ch, ch)
         elif block == 'Hangul Syllables':
-            ch = u'\uac00'
+            ch = six.u('\uac00')
         return ch
 
     @classmethod
@@ -100,7 +102,7 @@ class NGram(object):
     TO_NORMALIZE_VI_CHARS = messages.get_string('TO_NORMALIZE_VI_CHARS')
     DMARK_CLASS = messages.get_string('DMARK_CLASS')
     ALPHABET_WITH_DMARK = re.compile(
-        u'([' + TO_NORMALIZE_VI_CHARS + u'])([' + DMARK_CLASS + u'])',
+        '([' + TO_NORMALIZE_VI_CHARS + '])([' + DMARK_CLASS + '])',
         re.UNICODE)
 
     # CJK Kanji Normalization Mapping

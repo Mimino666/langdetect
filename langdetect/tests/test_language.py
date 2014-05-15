@@ -16,9 +16,9 @@ class LanguageTest(unittest.TestCase):
         self.assertEqual(str(lang2), 'en:1.0')
 
     def test_cmp(self):
-        lang1 = Language('a', 0.5)
-        lang2 = Language('b', 0.1)
+        lang1 = Language('a', 0.1)
+        lang2 = Language('b', 0.5)
 
-        self.assertEqual(cmp(lang1, lang2), -1)
-        self.assertEqual(cmp(lang2, lang1), 1)
-        self.assertEqual(cmp(lang1, lang1), 0)
+        self.assertTrue(lang1 < lang2)
+        self.assertFalse(lang1 == lang2)
+        self.assertFalse(lang1 > lang1)

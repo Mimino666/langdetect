@@ -13,7 +13,5 @@ class Language(object):
             return ''
         return '%s:%s' % (self.lang, self.prob)
 
-    def __cmp__(self, other):
-        if self.prob != other.prob:
-            return -1 if self.prob > other.prob else 1
-        return 0
+    def __lt__(self, other):
+        return self.prob < other.prob
