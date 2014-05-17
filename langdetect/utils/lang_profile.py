@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import defaultdict
 import re
 
 import six
@@ -15,16 +15,14 @@ class LangProfile(object):
     ROMAN_SUBSTR_RE = re.compile(r'.*[A-Za-z].*')
 
     def __init__(self, name=None, freq=None, n_words=None):
-        if freq is None:
-            freq = Counter()
-        else:
-            freq = Counter(freq)
+        self.freq = defaultdict(int)
+        if freq is not None:
+            self.freq.update(freq)
 
         if n_words is None:
             n_words = [0] * NGram.N_GRAM
 
         self.name = name
-        self.freq = freq
         self.n_words = n_words
 
     def add(self, gram):
