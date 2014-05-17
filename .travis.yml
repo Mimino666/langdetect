@@ -1,0 +1,14 @@
+language: python
+python:
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "pypy"
+install:
+  - "pip install ."
+  - "pip install -r requirements.txt"
+  - "pip install unittest2"
+script: unit2 discover -v
+branches:
+  only:
+    - master
