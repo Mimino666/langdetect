@@ -1,13 +1,17 @@
 language: python
 python:
+  - "2.6"
   - "2.7"
   - "3.2"
   - "3.3"
   - "pypy"
 install:
-  - "pip install ."
-  - "pip install -r requirements.txt"
-script: python -m unittest discover
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install unittest2; fi
+  - pip install .
+  - pip install -r requirements.txt
+script:
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then unit2 discover; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != '2.6' ]]; then python -m unittest discover; fi
 branches:
   only:
     - master
