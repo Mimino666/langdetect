@@ -7,8 +7,7 @@ python:
 install:
   - "pip install ."
   - "pip install -r requirements.txt"
-  - "pip install unittest2"
-script: unit2 discover -v
+script: python -m unittest discover
 branches:
   only:
     - master
