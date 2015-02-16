@@ -1,5 +1,6 @@
 import os
 from os import path
+import sys
 
 try:
     import simplejson as json
@@ -45,7 +46,10 @@ class DetectorFactory(object):
 
             f = None
             try:
-                f = open(filename, 'r')
+                if sys.version_info[0] < 3:
+                    f = open(filename, 'r')
+                else:
+                    f = open(filename, 'r', encoding='utf-8')
                 json_data = json.load(f)
                 profile = LangProfile(**json_data)
                 self.add_profile(profile, index, langsize)
