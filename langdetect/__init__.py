@@ -1,1 +1,1 @@
-from .detector_factory import detect, detect_langs
+from .detector_factory import DetectorFactory, PROFILES_DIRECTORY, detect, detect_langs

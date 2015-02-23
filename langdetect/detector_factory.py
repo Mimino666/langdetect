@@ -26,10 +26,11 @@ class DetectorFactory(object):
     construct Detector instance via DetectorFactory.create().
     See also Detector's sample code.
     '''
+    seed = None
+
     def __init__(self):
         self.word_lang_prob_map = {}
         self.langlist = []
-        self.seed = None
 
     def load_profile(self, profile_directory):
         list_files = os.listdir(profile_directory)
