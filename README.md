@@ -34,4 +34,4 @@ To find out the probabilities for the top languages:
 More information
 ================
 
-This library is a direct port of [language-detection](https://code.google.com/p/language-detection/) from Java to Python. All the classes and methods (even unittsets) are unchanged, so for more information see the project's website or wiki.
+This library is a direct port of [language-detection](https://code.google.com/p/language-detection/) from Java to Python. All the classes and methods (even unit tests) are unchanged, so for more information see the project's website or wiki.
