@@ -68,7 +68,7 @@ class NGram(object):
             if ch < 'A' or ('Z' < ch < 'a') or 'z' < ch:
                 ch = ' '
         elif block == UNICODE_LATIN_1_SUPPLEMENT:
-            if NGram.LATIN1_EXCLUDED.find(ch) >= 0:
+            if cls.LATIN1_EXCLUDED.find(ch) >= 0:
                 ch = ' '
         elif block == UNICODE_LATIN_EXTENDED_B:
             # normalization for Romanian
@@ -91,7 +91,7 @@ class NGram(object):
         elif block in (UNICODE_BOPOMOFO, UNICODE_BOPOMOFO_EXTENDED):
             ch = six.u('\u3105')
         elif block == UNICODE_CJK_UNIFIED_IDEOGRAPHS:
-            ch = NGram.CJK_MAP.get(ch, ch)
+            ch = cls.CJK_MAP.get(ch, ch)
         elif block == UNICODE_HANGUL_SYLLABLES:
             ch = six.u('\uac00')
         return ch
@@ -102,10 +102,10 @@ class NGram(object):
         Normalize Alphabet + Diacritical Mark(U+03xx) into U+1Exx.
         '''
         def repl(m):
-            alphabet = NGram.TO_NORMALIZE_VI_CHARS.find(m.group(1))
-            dmark = NGram.DMARK_CLASS.find(m.group(2))  # Diacritical Mark
-            return NGram.NORMALIZED_VI_CHARS[dmark][alphabet]
-        return NGram.ALPHABET_WITH_DMARK.sub(repl, text)
+            alphabet = cls.TO_NORMALIZE_VI_CHARS.find(m.group(1))
+            dmark = cls.DMARK_CLASS.find(m.group(2))  # Diacritical Mark
+            return cls.NORMALIZED_VI_CHARS[dmark][alphabet]
+        return cls.ALPHABET_WITH_DMARK.sub(repl, text)
 
     NORMALIZED_VI_CHARS = [
         messages.get_string('NORMALIZED_VI_CHARS_0300'),
@@ -252,9 +252,9 @@ class NGram(object):
 
     @classmethod
     def _init_cjk_map(cls):
-        for cjk_list in NGram.CJK_CLASS:
+        for cjk_list in cls.CJK_CLASS:
             representative = cjk_list[0]
             for ch in cjk_list:
-                NGram.CJK_MAP[ch] = representative
+                cls.CJK_MAP[ch] = representative
 
 NGram._init_cjk_map()
