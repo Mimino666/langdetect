@@ -3,7 +3,21 @@ import re
 import six
 
 from . import messages
-from .unicode_block import unicode_block
+from .unicode_block import (
+    unicode_block,
+    UNICODE_BASIC_LATIN,
+    UNICODE_LATIN_1_SUPPLEMENT,
+    UNICODE_LATIN_EXTENDED_B,
+    UNICODE_GENERAL_PUNCTUATION,
+    UNICODE_ARABIC,
+    UNICODE_LATIN_EXTENDED_ADDITIONAL,
+    UNICODE_HIRAGANA,
+    UNICODE_KATAKANA,
+    UNICODE_BOPOMOFO,
+    UNICODE_BOPOMOFO_EXTENDED,
+    UNICODE_CJK_UNIFIED_IDEOGRAPHS,
+    UNICODE_HANGUL_SYLLABLES,
+)
 
 
 class NGram(object):
@@ -50,35 +64,35 @@ class NGram(object):
     @classmethod
     def normalize(cls, ch):
         block = unicode_block(ch)
-        if block == 'Basic Latin':
+        if block == UNICODE_BASIC_LATIN:
             if ch < 'A' or ('Z' < ch < 'a') or 'z' < ch:
                 ch = ' '
-        elif block == 'Latin-1 Supplement':
+        elif block == UNICODE_LATIN_1_SUPPLEMENT:
             if NGram.LATIN1_EXCLUDED.find(ch) >= 0:
                 ch = ' '
-        elif block == 'Latin Extended-B':
+        elif block == UNICODE_LATIN_EXTENDED_B:
             # normalization for Romanian
             if ch == six.u('\u0219'):  # Small S with comma below => with cedilla
                 ch = six.u('\u015f')
             if ch == six.u('\u021b'):  # Small T with comma below => with cedilla
                 ch = six.u('\u0163')
-        elif block == 'General Punctuation':
+        elif block == UNICODE_GENERAL_PUNCTUATION:
             ch = ' '
-        elif block == 'Arabic':
+        elif block == UNICODE_ARABIC:
             if ch == six.u('\u06cc'):
                 ch = six.u('\u064a')  # Farsi yeh => Arabic yeh
-        elif block == 'Latin Extended Additional':
+        elif block == UNICODE_LATIN_EXTENDED_ADDITIONAL:
             if ch >= six.u('\u1ea0'):
                 ch = six.u('\u1ec3')
-        elif block == 'Hiragana':
+        elif block == UNICODE_HIRAGANA:
             ch = six.u('\u3042')
-        elif block == 'Katakana':
+        elif block == UNICODE_KATAKANA:
             ch = six.u('\u30a2')
-        elif block == 'Bopomofo' or block == 'Bopomofo Extended':
+        elif block in (UNICODE_BOPOMOFO, UNICODE_BOPOMOFO_EXTENDED):
             ch = six.u('\u3105')
-        elif block == 'CJK Unified Ideographs':
+        elif block == UNICODE_CJK_UNIFIED_IDEOGRAPHS:
             ch = NGram.CJK_MAP.get(ch, ch)
-        elif block == 'Hangul Syllables':
+        elif block == UNICODE_HANGUL_SYLLABLES:
             ch = six.u('\uac00')
         return ch
 
