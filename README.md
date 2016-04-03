@@ -30,6 +30,15 @@ To find out the probabilities for the top languages:
     >>> detect_langs("Otec matka syn.")
     [sk:0.572770823327, pl:0.292872522702, cs:0.134356653968]
 
+**IMPORTANT**
+
+Language detection algorithm is non-deterministic, which means that if you try to run it on a text which is either too short or too ambiguous, you might get different results everytime you run it.
+
+To enforce consistent results, call following code before the first language detection:
+
+    from langdetect import DetectorFactory
+    DetectorFactory.seed = 0
+
 
 More information
 ================
