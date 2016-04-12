@@ -22,7 +22,7 @@ install:
   - if [ "$TRAVIS_PYTHON_VERSION" != "3.2" ]; then travis_retry pip install coverage; fi
 
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then coverage run --omit=langdetect/tests/* unit2 discover; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then coverage run --omit=langdetect/tests/* -m unittest2 discover; fi
   - if [[ $TRAVIS_PYTHON_VERSION != '2.6' ]]; then coverage run --omit=langdetect/tests/* -m unittest discover; fi
 
 after_success:
