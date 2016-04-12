@@ -7,6 +7,8 @@ python:
   - "3.4"
   - "3.5"
   - "pypy"
+# Use container-based infrastructure
+sudo: false
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install unittest2; fi
   - pip install .
