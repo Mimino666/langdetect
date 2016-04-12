@@ -14,6 +14,3 @@ install:
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then unit2 discover; fi
   - if [[ $TRAVIS_PYTHON_VERSION != '2.6' ]]; then python -m unittest discover; fi
-branches:
-  only:
-    - master
