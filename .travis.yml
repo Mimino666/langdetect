@@ -8,6 +8,7 @@ python:
   - "3.4"
   - "3.5"
   - "pypy"
+  - "pypy3"
 
 # Use container-based infrastructure
 sudo: false
@@ -23,7 +24,7 @@ install:
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then coverage run --source=langdetect --omit=langdetect/tests/* -m unittest2 discover; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != '2.6' ]]; then coverage run --source=langdetect/* --omit=langdetect/tests/* -m unittest discover; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != '2.6' ]]; then coverage run --source=langdetect --omit=langdetect/tests/* -m unittest discover; fi
 
 after_success:
  - pip install coveralls
