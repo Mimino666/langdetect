@@ -1,6 +1,8 @@
 langdetect
 ==========
 
+[![Build Status](https://travis-ci.org/Mimino666/langdetect.svg?branch=master)](https://travis-ci.org/Mimino666/langdetect)
+
 Port of [language-detection](https://code.google.com/p/language-detection/) (version from 03/03/2014) library to Python.
 
 
