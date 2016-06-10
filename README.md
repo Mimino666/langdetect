@@ -1,7 +1,7 @@
 langdetect
 ==========
 
-Port of Google's [language-detection](https://code.google.com/p/language-detection/) (version from 03/03/2014) library to Python.
+Port of Google's [language-detection](https://code.google.com/p/language-detection/) library (version from 03/03/2014) to Python.
 
 
 Installation
@@ -61,7 +61,7 @@ You need to create a new language profile. The easiest way to do it is to use th
 
 Wikipedia abstract database files can be retrieved from "Wikipedia Downloads" ([http://download.wikimedia.org/](http://download.wikimedia.org/)). They form '(language code)wiki-(version)-abstract.xml' (e.g. 'enwiki-20101004-abstract.xml' ).
 
-usage: ``java -jar lib/langdetect.jar --genprofile -d [directory path] [language codes]``
+usage: ``java -jar langdetect.jar --genprofile -d [directory path] [language codes]``
 
 - Specify the directory which has abstract databases by -d option.
 - This tool can handle gzip compressed file.
@@ -70,9 +70,9 @@ Remark: The database filename in Chinese is like 'zhwiki-(version)-abstract-zh-c
 
 To generate language profile from a plain text, use the genprofile-text command.
 
-usage: ``java -jar lib/langdetect.jar --genprofile-text -l [language code] [text file path]``
+usage: ``java -jar langdetect.jar --genprofile-text -l [language code] [text file path]``
 
-For more detail see [language-detection Wiki](https://code.google.com/archive/p/language-detection/wikis/Tools.wiki).
+For more details see [language-detection Wiki](https://code.google.com/archive/p/language-detection/wikis/Tools.wiki).
 
 
 Original project
