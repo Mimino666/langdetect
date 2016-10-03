@@ -57,6 +57,7 @@ class Detector(object):
         self.word_lang_prob_map = factory.word_lang_prob_map
         self.langlist = factory.langlist
         self.seed = factory.seed
+        self.random = random.Random()
         self.text = ''
         self.langprob = None
 
@@ -150,14 +151,14 @@ class Detector(object):
 
         self.langprob = [0.0] * len(self.langlist)
 
-        random.seed(self.seed)
+        self.random.seed(self.seed)
         for t in xrange(self.n_trial):
             prob = self._init_probability()
-            alpha = self.alpha + random.gauss(0.0, 1.0) * self.ALPHA_WIDTH
+            alpha = self.alpha + self.random.gauss(0.0, 1.0) * self.ALPHA_WIDTH
 
             i = 0
             while True:
-                self._update_lang_prob(prob, random.choice(ngrams), alpha)
+                self._update_lang_prob(prob, self.random.choice(ngrams), alpha)
                 if i % 5 == 0:
                     if self._normalize_prob(prob) > self.CONV_THRESHOLD or i >= self.ITERATION_LIMIT:
                         break
