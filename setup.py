@@ -12,7 +12,7 @@ with open('LICENSE') as f:
 
 setup(
     name='langdetect',
-    version='1.0.6',
+    version='1.0.7',
     description='Language detection library ported from Google\'s language-detection.',
     long_description=readme,
     author='Michal Mimino Danilak',
