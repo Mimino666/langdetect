@@ -11,6 +11,8 @@ from .detector import Detector
 from .lang_detect_exception import ErrorCode, LangDetectException
 from .utils.lang_profile import LangProfile
 
+PROFILES_DIRECTORY = path.join(path.dirname(__file__), 'profiles')
+_factory = None
 
 class DetectorFactory(object):
     '''
@@ -31,6 +33,7 @@ class DetectorFactory(object):
     def __init__(self):
         self.word_lang_prob_map = {}
         self.langlist = []
+        self.load_profile(PROFILES_DIRECTORY)
 
     def load_profile(self, profile_directory):
         list_files = os.listdir(profile_directory)
@@ -114,14 +117,10 @@ class DetectorFactory(object):
         return list(self.langlist)
 
 
-PROFILES_DIRECTORY = path.join(path.dirname(__file__), 'profiles')
-_factory = None
-
 def init_factory():
     global _factory
     if _factory is None:
         _factory = DetectorFactory()
-        _factory.load_profile(PROFILES_DIRECTORY)
 
 def detect(text):
     init_factory()
