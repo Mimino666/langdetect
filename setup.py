@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 
 setup(
-    name='langdetect',
+    name='bildfell-langdetect',
     version='1.0.7',
     description='Language detection library ported from Google\'s language-detection.',
     long_description=readme,
