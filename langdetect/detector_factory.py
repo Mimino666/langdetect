@@ -1,6 +1,7 @@
-import os
-from os import path
+from os import listdir, path, sep
 import sys
+
+from pkg_resources import resource_filename
 
 try:
     import simplejson as json
@@ -33,15 +34,21 @@ class DetectorFactory(object):
         self.langlist = []
 
     def load_profile(self, profile_directory):
-        list_files = os.listdir(profile_directory)
+        path_parts = profile_directory.split(sep)
+        package_name = path_parts[0]
+        resource_name = sep.join(path_parts[1:])
+        profile_directory_resource = resource_filename(package_name, resource_name)
+
+        list_files = listdir(profile_directory_resource)
+
         if not list_files:
-            raise LangDetectException(ErrorCode.NeedLoadProfileError, 'Not found profile: ' + profile_directory)
+            raise LangDetectException(ErrorCode.NeedLoadProfileError, 'Not found profile: ' + profile_directory_resource)
 
         langsize, index = len(list_files), 0
         for filename in list_files:
             if filename.startswith('.'):
                 continue
-            filename = path.join(profile_directory, filename)
+            filename = path.join(profile_directory_resource, filename)
             if not path.isfile(filename):
                 continue
 
