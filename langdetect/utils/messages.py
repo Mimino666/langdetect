@@ -4,8 +4,7 @@ from pkg_resources import resource_filename
 
 
 class Messages(object):
-    MESSAGES_FILENAME = resource_filename('langdetect/utils', 'messages.properties')
-    # MESSAGES_FILENAME = path.join(path.dirname(__file__), 'messages.properties')
+    MESSAGES_FILENAME = resource_filename('langdetect.utils', 'messages.properties')
 
     def __init__(self):
         self.messages = {}
