@@ -116,7 +116,7 @@ class DetectorFactory(object):
         return list(self.langlist)
 
 
-PROFILES_DIRECTORY = resource_filename(path.dirname(__file__), 'profiles')
+PROFILES_DIRECTORY = resource_filename('langdetect', 'profiles')
 _factory = None
 
 def init_factory():
