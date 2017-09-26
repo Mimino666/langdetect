@@ -9,7 +9,7 @@ from langdetect.utils.lang_profile import LangProfile
 class LangProfileText(unittest.TestCase):
     def test_lang_profile(self):
         profile = LangProfile()
-        self.assertTrue(profile.name is None)
+        self.assertIsNone(profile.name)
 
     def test_lang_profile_string_int(self):
         profile = LangProfile('en')
@@ -26,7 +26,7 @@ class LangProfileText(unittest.TestCase):
     def test_add_illegally1(self):
         profile = LangProfile()
         profile.add('a')  # ignore
-        self.assertTrue(profile.freq.get('a') is None)  # ignored
+        self.assertIsNone(profile.freq.get('a'))  # ignored
 
     def test_add_illegally2(self):
         profile = LangProfile('en')
@@ -34,8 +34,8 @@ class LangProfileText(unittest.TestCase):
         profile.add('')  # Illegal (string's length of parameter must be between 1 and 3) but ignore
         profile.add('abcd')  # as well
         self.assertEqual(profile.freq.get('a'), 1)
-        self.assertTrue(profile.freq.get('') is None)  # ignored
-        self.assertTrue(profile.freq.get('abcd') is None)  # ignored
+        self.assertIsNone(profile.freq.get(''))  # ignored
+        self.assertIsNone(profile.freq.get('abcd'))  # ignored
 
     def test_omit_less_freq(self):
         profile = LangProfile('en')
@@ -49,9 +49,9 @@ class LangProfileText(unittest.TestCase):
         self.assertEqual(profile.freq.get(six.u('\u3042')), 5)
         self.assertEqual(profile.freq.get(six.u('\u3050')), 1)
         profile.omit_less_freq()
-        self.assertTrue(profile.freq.get('a') is None)  # omitted
+        self.assertIsNone(profile.freq.get('a'))  # omitted
         self.assertEqual(profile.freq.get(six.u('\u3042')), 5)
-        self.assertTrue(profile.freq.get(six.u('\u3050')) is None)  # omitted
+        self.assertIsNone(profile.freq.get(six.u('\u3050')))  # omitted
 
     def test_omit_less_freq_illegally(self):
         profile = LangProfile()

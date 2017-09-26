@@ -1,10 +1,7 @@
 language: python
 
 python:
-  - "2.6"
   - "2.7"
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
@@ -15,17 +12,12 @@ python:
 sudo: false
 
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install unittest2; fi
   - pip install .
   - pip install -r requirements.txt
-
-  # Coverage 4.0 doesn't support Python 3.2
-  - if [ "$TRAVIS_PYTHON_VERSION" == "3.2" ]; then travis_retry pip install coverage==3.7.1; fi
-  - if [ "$TRAVIS_PYTHON_VERSION" != "3.2" ]; then travis_retry pip install coverage; fi
+  - pip install coverage
 
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then coverage run --source=langdetect --omit=langdetect/tests/* -m unittest2 discover; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != '2.6' ]]; then coverage run --source=langdetect --omit=langdetect/tests/* -m unittest discover; fi
+  - coverage run --source=langdetect --omit=langdetect/tests/* -m unittest discover
 
 after_success:
  - pip install coveralls
