@@ -6,7 +6,7 @@ from langdetect.language import Language
 class LanguageTest(unittest.TestCase):
     def test_language(self):
         lang = Language(None, 0)
-        self.assertTrue(lang.lang is None)
+        self.assertIsNone(lang.lang)
         self.assertEqual(lang.prob, 0.0, 0.0001)
         self.assertEqual(str(lang), '')
 
