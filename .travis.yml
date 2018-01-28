@@ -25,6 +25,6 @@ after_success:
 
 after_script:
  - coverage report
- - pip install pep8 pyflakes
+ - pip install pycodestyle pyflakes
  - pyflakes .| tee >(wc -l)
- - pep8 --statistics --count .
+ - pycodestyle --statistics --count .
