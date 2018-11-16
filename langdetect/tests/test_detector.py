@@ -1,7 +1,10 @@
 import unittest
 
 import six
+import time
 
+from langdetect import detector_factory
+from langdetect.detector import Detector
 from langdetect.detector_factory import DetectorFactory
 from langdetect.utils.lang_profile import LangProfile
 
@@ -30,6 +33,12 @@ class DetectorTest(unittest.TestCase):
         for w in self.TRAINING_JA.split():
             profile_ja.add(w)
         self.factory.add_profile(profile_ja, 2, 3)
+
+    def test_detector_returns_quickly_for_null_text(self):
+        a = time.time()
+        result = detector_factory.detect(None)
+        self.assertLess(time.time() - a, 1e-3)
+        self.assertEqual(Detector.UNKNOWN_LANG, result)
 
     def test_detector1(self):
         detect = self.factory.create()
