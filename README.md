@@ -11,7 +11,7 @@ Installation
 
     $ pip install langdetect
 
-Supported Python versions 2.7, 3.4+.
+Supported Python versions 3.4+.
 
 
 Languages
