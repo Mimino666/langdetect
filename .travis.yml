@@ -10,9 +10,6 @@ python:
   - "pypy"
   - "pypy3"
 
-# Use container-based infrastructure
-sudo: false
-
 install:
   - pip install .
   - pip install -r requirements.txt
