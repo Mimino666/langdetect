@@ -9,7 +9,9 @@ Port of Nakatani Shuyo's [language-detection](https://github.com/shuyo/language-
 Installation
 ============
 
-    $ pip install langdetect
+```sh
+pip install langdetect
+```
 
 Supported Python versions 3.6+.
 
@@ -29,7 +31,7 @@ Basic usage
 
 To detect the language of the text:
 
-```python
+```pycon
 >>> from langdetect import detect
 >>> detect("War doesn't show who's right, just who's left.")
 'en'
@@ -39,7 +41,7 @@ To detect the language of the text:
 
 To find out the probabilities for the top languages:
 
-```python
+```pycon
 >>> from langdetect import detect_langs
 >>> detect_langs("Otec matka syn.")
 [sk:0.572770823327, pl:0.292872522702, cs:0.134356653968]
