@@ -11,7 +11,7 @@ class Language:
     def __repr__(self):
         if self.lang is None:
             return ''
-        return '{}:{}'.format(self.lang, self.prob)
+        return f'{self.lang}:{self.prob}'
 
     def __lt__(self, other):
         return self.prob < other.prob
