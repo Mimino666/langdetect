@@ -1,7 +1,5 @@
 import re
 
-import six
-
 from . import messages
 from .unicode_block import (
     unicode_block,

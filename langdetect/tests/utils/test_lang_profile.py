@@ -1,8 +1,5 @@
 import unittest
 
-import six
-from six.moves import xrange
-
 from langdetect.utils.lang_profile import LangProfile
 
 
@@ -40,7 +37,7 @@ class LangProfileText(unittest.TestCase):
     def test_omit_less_freq(self):
         profile = LangProfile('en')
         grams = 'a b c \u3042 \u3044 \u3046 \u3048 \u304a \u304b \u304c \u304d \u304e \u304f'.split()
-        for i in xrange(5):
+        for i in range(5):
             for g in grams:
                 profile.add(g)
         profile.add('\u3050')

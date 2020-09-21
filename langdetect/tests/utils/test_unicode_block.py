@@ -1,7 +1,5 @@
 import unittest
 
-import six
-
 from langdetect.utils import unicode_block
 
 

@@ -20,7 +20,6 @@ setup(
     keywords='language detection library',
     packages=['langdetect', 'langdetect.utils', 'langdetect.tests'],
     include_package_data=True,
-    install_requires=['six'],
     python_requires='>=3.4',
     license='MIT',
     classifiers=[
