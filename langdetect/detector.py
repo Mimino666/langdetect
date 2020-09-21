@@ -2,7 +2,7 @@ import random
 import re
 
 import six
-from six.moves import zip, xrange
+from six.moves import xrange
 
 from .lang_detect_exception import ErrorCode, LangDetectException
 from .language import Language
@@ -10,7 +10,7 @@ from .utils.ngram import NGram
 from .utils.unicode_block import unicode_block
 
 
-class Detector(object):
+class Detector:
     '''
     Detector class is to detect language from specified text.
     Its instance is able to be constructed via the factory class DetectorFactory.
@@ -119,7 +119,7 @@ class Detector(object):
         for ch in self.text:
             if 'A' <= ch <= 'z':
                 latin_count += 1
-            elif ch >= six.u('\u0300') and unicode_block(ch) != 'Latin Extended Additional':
+            elif ch >= '\u0300' and unicode_block(ch) != 'Latin Extended Additional':
                 non_latin_count += 1
 
         if latin_count * 2 < non_latin_count:
@@ -163,12 +163,12 @@ class Detector(object):
                     if self._normalize_prob(prob) > self.CONV_THRESHOLD or i >= self.ITERATION_LIMIT:
                         break
                     if self.verbose:
-                        six.print_('>', self._sort_probability(prob))
+                        print('>', self._sort_probability(prob))
                 i += 1
             for j in xrange(len(self.langprob)):
                 self.langprob[j] += prob[j] / self.n_trial
             if self.verbose:
-                six.print_('==>', self._sort_probability(prob))
+                print('==>', self._sort_probability(prob))
 
     def _init_probability(self):
         '''Initialize the map of language probabilities.
@@ -205,7 +205,7 @@ class Detector(object):
 
         lang_prob_map = self.word_lang_prob_map[word]
         if self.verbose:
-            six.print_('%s(%s): %s' % (word, self._unicode_encode(word), self._word_prob_to_string(lang_prob_map)))
+            print('{}({}): {}'.format(word, self._unicode_encode(word), self._word_prob_to_string(lang_prob_map)))
 
         weight = alpha / self.BASE_FREQ
         for i in xrange(len(prob)):
@@ -217,7 +217,7 @@ class Detector(object):
         for j in xrange(len(prob)):
             p = prob[j]
             if p >= 0.00001:
-                result += ' %s:%.5f' % (self.langlist[j], p)
+                result += ' {}:{:.5f}'.format(self.langlist[j], p)
         return result
 
     def _normalize_prob(self, prob):
@@ -239,7 +239,7 @@ class Detector(object):
     def _unicode_encode(self, word):
         buf = ''
         for ch in word:
-            if ch >= six.u('\u0080'):
+            if ch >= '\u0080':
                 st = hex(0x10000 + ord(ch))[2:]
                 while len(st) < 4:
                     st = '0' + st

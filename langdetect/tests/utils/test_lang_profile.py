@@ -39,19 +39,19 @@ class LangProfileText(unittest.TestCase):
 
     def test_omit_less_freq(self):
         profile = LangProfile('en')
-        grams = six.u('a b c \u3042 \u3044 \u3046 \u3048 \u304a \u304b \u304c \u304d \u304e \u304f').split()
+        grams = 'a b c \u3042 \u3044 \u3046 \u3048 \u304a \u304b \u304c \u304d \u304e \u304f'.split()
         for i in xrange(5):
             for g in grams:
                 profile.add(g)
-        profile.add(six.u('\u3050'))
+        profile.add('\u3050')
 
         self.assertEqual(profile.freq.get('a'), 5)
-        self.assertEqual(profile.freq.get(six.u('\u3042')), 5)
-        self.assertEqual(profile.freq.get(six.u('\u3050')), 1)
+        self.assertEqual(profile.freq.get('\u3042'), 5)
+        self.assertEqual(profile.freq.get('\u3050'), 1)
         profile.omit_less_freq()
         self.assertIsNone(profile.freq.get('a'))  # omitted
-        self.assertEqual(profile.freq.get(six.u('\u3042')), 5)
-        self.assertIsNone(profile.freq.get(six.u('\u3050')))  # omitted
+        self.assertEqual(profile.freq.get('\u3042'), 5)
+        self.assertIsNone(profile.freq.get('\u3050'))  # omitted
 
     def test_omit_less_freq_illegally(self):
         profile = LangProfile()

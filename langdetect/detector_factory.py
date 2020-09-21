@@ -12,7 +12,7 @@ from .lang_detect_exception import ErrorCode, LangDetectException
 from .utils.lang_profile import LangProfile
 
 
-class DetectorFactory(object):
+class DetectorFactory:
     '''
     Language Detector Factory Class.
 
@@ -48,14 +48,14 @@ class DetectorFactory(object):
             f = None
             try:
                 if sys.version_info[0] < 3:
-                    f = open(filename, 'r')
+                    f = open(filename)
                 else:
-                    f = open(filename, 'r', encoding='utf-8')
+                    f = open(filename, encoding='utf-8')
                 json_data = json.load(f)
                 profile = LangProfile(**json_data)
                 self.add_profile(profile, index, langsize)
                 index += 1
-            except IOError:
+            except OSError:
                 raise LangDetectException(ErrorCode.FileLoadError, 'Cannot open "%s"' % filename)
             except:
                 raise LangDetectException(ErrorCode.FormatError, 'Profile format error in "%s"' % filename)

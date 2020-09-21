@@ -15,7 +15,7 @@ ErrorCode = type('ErrorCode', (), _error_codes)
 
 class LangDetectException(Exception):
     def __init__(self, code, message):
-        super(LangDetectException, self).__init__(message)
+        super().__init__(message)
         self.code = code
 
     def get_code(self):

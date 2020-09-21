@@ -7,7 +7,7 @@ from six.moves import xrange
 from .ngram import NGram
 
 
-class LangProfile(object):
+class LangProfile:
     MINIMUM_FREQ = 2
     LESS_FREQ_RATIO = 100000
 
@@ -42,7 +42,7 @@ class LangProfile(object):
         threshold = max(self.n_words[0] // self.LESS_FREQ_RATIO, self.MINIMUM_FREQ)
 
         roman = 0
-        for key, count in list(six.iteritems(self.freq)):
+        for key, count in list(self.freq.items()):
             if count <= threshold:
                 self.n_words[len(key)-1] -= count
                 del self.freq[key]
@@ -51,7 +51,7 @@ class LangProfile(object):
 
         # roman check
         if roman < self.n_words[0] // 3:
-            for key, count in list(six.iteritems(self.freq)):
+            for key, count in list(self.freq.items()):
                 if self.ROMAN_SUBSTR_RE.match(key):
                     self.n_words[len(key)-1] -= count
                     del self.freq[key]

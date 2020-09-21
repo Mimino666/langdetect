@@ -1,4 +1,4 @@
-class Language(object):
+class Language:
     '''
     Language is to store the detected language.
     Detector.get_probabilities() returns a list of Languages.
@@ -11,7 +11,7 @@ class Language(object):
     def __repr__(self):
         if self.lang is None:
             return ''
-        return '%s:%s' % (self.lang, self.prob)
+        return '{}:{}'.format(self.lang, self.prob)
 
     def __lt__(self, other):
         return self.prob < other.prob

@@ -20,7 +20,7 @@ from .unicode_block import (
 )
 
 
-class NGram(object):
+class NGram:
     LATIN1_EXCLUDED = messages.get_string('NGram.LATIN1_EXCLUDE')
     N_GRAM = 3
 
@@ -72,28 +72,28 @@ class NGram(object):
                 ch = ' '
         elif block == UNICODE_LATIN_EXTENDED_B:
             # normalization for Romanian
-            if ch == six.u('\u0219'):  # Small S with comma below => with cedilla
-                ch = six.u('\u015f')
-            if ch == six.u('\u021b'):  # Small T with comma below => with cedilla
-                ch = six.u('\u0163')
+            if ch == '\u0219':  # Small S with comma below => with cedilla
+                ch = '\u015f'
+            if ch == '\u021b':  # Small T with comma below => with cedilla
+                ch = '\u0163'
         elif block == UNICODE_GENERAL_PUNCTUATION:
             ch = ' '
         elif block == UNICODE_ARABIC:
-            if ch == six.u('\u06cc'):
-                ch = six.u('\u064a')  # Farsi yeh => Arabic yeh
+            if ch == '\u06cc':
+                ch = '\u064a'  # Farsi yeh => Arabic yeh
         elif block == UNICODE_LATIN_EXTENDED_ADDITIONAL:
-            if ch >= six.u('\u1ea0'):
-                ch = six.u('\u1ec3')
+            if ch >= '\u1ea0':
+                ch = '\u1ec3'
         elif block == UNICODE_HIRAGANA:
-            ch = six.u('\u3042')
+            ch = '\u3042'
         elif block == UNICODE_KATAKANA:
-            ch = six.u('\u30a2')
+            ch = '\u30a2'
         elif block in (UNICODE_BOPOMOFO, UNICODE_BOPOMOFO_EXTENDED):
-            ch = six.u('\u3105')
+            ch = '\u3105'
         elif block == UNICODE_CJK_UNIFIED_IDEOGRAPHS:
             ch = cls.CJK_MAP.get(ch, ch)
         elif block == UNICODE_HANGUL_SYLLABLES:
-            ch = six.u('\uac00')
+            ch = '\uac00'
         return ch
 
     @classmethod

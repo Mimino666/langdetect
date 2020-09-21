@@ -1,12 +1,12 @@
 from os import path
 
 
-class Messages(object):
+class Messages:
     MESSAGES_FILENAME = path.join(path.dirname(__file__), 'messages.properties')
 
     def __init__(self):
         self.messages = {}
-        with open(self.MESSAGES_FILENAME, 'r') as f:
+        with open(self.MESSAGES_FILENAME) as f:
             for line in f:
                 key, _, value = line.strip().partition('=')
                 self.messages[key] = value.encode().decode('unicode_escape')
