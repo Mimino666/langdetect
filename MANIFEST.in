@@ -3,5 +3,4 @@ include LICENSE
 include NOTICE
 include MANIFEST.in
 include requirements.txt
-include langdetect/utils/messages.properties
 recursive-include langdetect/profiles *
