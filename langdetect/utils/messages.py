@@ -138,7 +138,9 @@ mydict = {'NGram.CJK_KANJI_EXCLUDE':'\u0020\uFF08\uFF09',
 
 class Messages(object):
     def __init__(self):
-        self.messages = mydict
+        self.messages = {}
+        for k in mydict.keys():
+            self.messages[k] = mydict[k].encode().decode('unicode_escape')
 
     def get_string(self, key):
         return self.messages.get(key, '!%s!' % key)
