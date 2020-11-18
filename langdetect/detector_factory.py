@@ -8,6 +8,7 @@ except ImportError:
     import json
 
 from .detector import Detector
+from .profiles import profiles
 from .lang_detect_exception import ErrorCode, LangDetectException
 from .utils.lang_profile import LangProfile
 
@@ -32,36 +33,12 @@ class DetectorFactory(object):
         self.word_lang_prob_map = {}
         self.langlist = []
 
-    def load_profile(self, profile_directory):
-        list_files = os.listdir(profile_directory)
-        if not list_files:
-            raise LangDetectException(ErrorCode.NeedLoadProfileError, 'Not found profile: ' + profile_directory)
-
-        langsize, index = len(list_files), 0
-        for filename in list_files:
-            if filename.startswith('.'):
-                continue
-            filename = path.join(profile_directory, filename)
-            if not path.isfile(filename):
-                continue
-
-            f = None
-            try:
-                if sys.version_info[0] < 3:
-                    f = open(filename, 'r')
-                else:
-                    f = open(filename, 'r', encoding='utf-8')
-                json_data = json.load(f)
-                profile = LangProfile(**json_data)
-                self.add_profile(profile, index, langsize)
-                index += 1
-            except IOError:
-                raise LangDetectException(ErrorCode.FileLoadError, 'Cannot open "%s"' % filename)
-            except:
-                raise LangDetectException(ErrorCode.FormatError, 'Profile format error in "%s"' % filename)
-            finally:
-                if f:
-                    f.close()
+    def load_profile(self):
+        langsize, index = len(profiles), 0
+        for _p in profiles:
+            profile = LangProfile(**_p)
+            self.add_profile(profile, index, langsize)
+            index += 1
 
     def load_json_profile(self, json_profiles):
         langsize, index = len(json_profiles), 0
@@ -114,7 +91,6 @@ class DetectorFactory(object):
         return list(self.langlist)
 
 
-PROFILES_DIRECTORY = path.join(path.dirname(__file__), 'profiles')
 _factory = None
 
 def init_factory():
