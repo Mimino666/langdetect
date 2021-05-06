@@ -1,5 +1,8 @@
 language: python
 
+arch:
+  - amd64
+  - ppc64le
 python:
   - "2.7"
   - "3.4"
@@ -9,7 +12,12 @@ python:
   - "3.8"
   - "pypy"
   - "pypy3"
-
+jobs:
+  exclude:
+   - arch : ppc64le
+     python : pypy
+   - arch : ppc64le
+     python : pypy3	  
 # Use container-based infrastructure
 sudo: false
 
