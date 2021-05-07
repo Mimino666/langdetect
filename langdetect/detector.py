@@ -149,6 +149,17 @@ class Detector(object):
         if not ngrams:
             raise LangDetectException(ErrorCode.CantDetectError, 'No features in text.')
 
+        if len(ngrams) < self.ITERATION_LIMIT / 3:
+            # More accurate to take them all
+            prob = self._init_probability()
+            for i, ngram in enumerate(ngrams):
+                self._update_lang_prob(prob, ngram, self.alpha)
+                if i % 5 == 0:
+                    self._normalize_prob(prob)
+            self._normalize_prob(prob)
+            self.langprob = prob
+            return
+
         self.langprob = [0.0] * len(self.langlist)
 
         self.random.seed(self.seed)
