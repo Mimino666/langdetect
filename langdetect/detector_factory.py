@@ -124,6 +124,12 @@ def init_factory():
         _factory.load_profile(PROFILES_DIRECTORY)
 
 def detect(text):
+    """
+    :type text: str or bytes or None
+    :rtype: str
+    """
+    if not text:
+        return Detector.UNKNOWN_LANG
     init_factory()
     detector = _factory.create()
     detector.append(text)
