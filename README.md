@@ -44,6 +44,14 @@ To find out the probabilities for the top languages:
 >>> detect_langs("Otec matka syn.")
 [sk:0.572770823327, pl:0.292872522702, cs:0.134356653968]
 ```
+If the initial setup is too slow for your needs, you can limit the 
+languages that are initialized to a list like `['en', 'es']`
+
+```python
+>>> from langdetect import detect_langs
+>>> detect_langs("Otec matka syn.", ['pl', 'en'])
+[pl:0.9999969874885826]
+```
 
 **NOTE**
 
@@ -56,12 +64,12 @@ from langdetect import DetectorFactory
 DetectorFactory.seed = 0
 ```
 
-How to add new language?
-========================
+How to add a new language?
+==========================
 
-You need to create a new language profile. The easiest way to do it is to use the [langdetect.jar](https://github.com/shuyo/language-detection/raw/master/lib/langdetect.jar) tool, which can generate language profiles from Wikipedia abstract database files or plain text.
+You need to create a new language profile. The easiest way to do this is to use the [langdetect.jar](https://github.com/shuyo/language-detection/raw/master/lib/langdetect.jar) tool, which can generate language profiles from the Wikipedia abstract database files or plain text.
 
-Wikipedia abstract database files can be retrieved from "Wikipedia Downloads" ([http://download.wikimedia.org/](http://download.wikimedia.org/)). They form '(language code)wiki-(version)-abstract.xml' (e.g. 'enwiki-20101004-abstract.xml' ).
+The Wikipedia abstract database files can be retrieved from "Wikipedia Downloads" ([http://download.wikimedia.org/](http://download.wikimedia.org/)). They form '(language code)wiki-(version)-abstract.xml' (e.g. 'enwiki-20101004-abstract.xml' ).
 
 usage: ``java -jar langdetect.jar --genprofile -d [directory path] [language codes]``
 

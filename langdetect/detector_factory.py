@@ -19,8 +19,11 @@ class DetectorFactory(object):
     This class manages an initialization and constructions of Detector.
 
     Before using language detection library,
-    load profiles with DetectorFactory.load_profile(str)
+    load profiles with DetectorFactory.load_profile(str, list)
     and set initialization parameters.
+
+    The list in DetectorFactory.load_profile limits the languages to use.
+    E.g. ['en', 'es'] for checking English and Spanish only.
 
     When the language detection,
     construct Detector instance via DetectorFactory.create().
@@ -32,8 +35,11 @@ class DetectorFactory(object):
         self.word_lang_prob_map = {}
         self.langlist = []
 
-    def load_profile(self, profile_directory):
-        list_files = os.listdir(profile_directory)
+    def load_profile(self, profile_directory, languages=[]):
+        if languages:
+            list_files = languages
+        else:
+            list_files = os.listdir(profile_directory)
         if not list_files:
             raise LangDetectException(ErrorCode.NeedLoadProfileError, 'Not found profile: ' + profile_directory)
 
@@ -116,22 +122,25 @@ class DetectorFactory(object):
 
 PROFILES_DIRECTORY = path.join(path.dirname(__file__), 'profiles')
 _factory = None
+_languages = []
 
-def init_factory():
+def init_factory(languages=[]):
     global _factory
-    if _factory is None:
+    global _languages
+    if (_factory is None) or (_languages != languages):
+        _languages = languages
         _factory = DetectorFactory()
-        _factory.load_profile(PROFILES_DIRECTORY)
+        _factory.load_profile(PROFILES_DIRECTORY, _languages)
 
-def detect(text):
-    init_factory()
+def detect(text, languages=[]):
+    init_factory(languages)
     detector = _factory.create()
     detector.append(text)
     return detector.detect()
 
 
-def detect_langs(text):
-    init_factory()
+def detect_langs(text, languages=[]):
+    init_factory(languages)
     detector = _factory.create()
     detector.append(text)
     return detector.get_probabilities()
