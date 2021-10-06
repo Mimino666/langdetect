@@ -221,7 +221,7 @@ class Detector(object):
         return result
 
     def _normalize_prob(self, prob):
-        '''Normalize probabilities and check convergence by the maximun probability.
+        '''Normalize probabilities and check convergence by the maximum probability.
         '''
         maxp, sump = 0.0, sum(prob)
         for i in xrange(len(prob)):
