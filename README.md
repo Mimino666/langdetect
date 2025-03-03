@@ -33,7 +33,7 @@ To detect the language of the text:
 >>> from langdetect import detect
 >>> detect("War doesn't show who's right, just who's left.")
 'en'
->>> detect("Ein, zwei, drei, vier")
+>>> detect("Eins, zwei, drei, vier")
 'de'
 ```
 
