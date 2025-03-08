@@ -23,6 +23,9 @@ Languages
     hi, hr, hu, id, it, ja, kn, ko, lt, lv, mk, ml, mr, ne, nl, no, pa, pl,
     pt, ro, ru, sk, sl, so, sq, sv, sw, ta, te, th, tl, tr, uk, ur, vi, zh-cn, zh-tw
 
+Support for 5 more languages that use the [Ge'ez script](https://en.wikipedia.org/wiki/Ge'ez_script) based on the [GeezSwitch dataset](https://github.com/fgaim/geezswitch-data). Using [ISO 639-3](https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Languages/List_of_ISO_639-3_language_codes_(2019)) since some of these languages do not have ISO 639-1 codes:
+
+    amh, byn, gez, tig, tir
 
 Basic usage
 ===========
