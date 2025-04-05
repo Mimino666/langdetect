@@ -11,6 +11,8 @@ from .detector import Detector
 from .lang_detect_exception import ErrorCode, LangDetectException
 from .utils.lang_profile import LangProfile
 
+from threading import Lock
+
 
 class DetectorFactory(object):
     '''
@@ -116,12 +118,16 @@ class DetectorFactory(object):
 
 PROFILES_DIRECTORY = path.join(path.dirname(__file__), 'profiles')
 _factory = None
+factory_lock = Lock()
+
 
 def init_factory():
     global _factory
-    if _factory is None:
-        _factory = DetectorFactory()
-        _factory.load_profile(PROFILES_DIRECTORY)
+    with factory_lock:
+        if _factory is None:
+            _factory = DetectorFactory()
+            _factory.load_profile(PROFILES_DIRECTORY)
+
 
 def detect(text):
     init_factory()
