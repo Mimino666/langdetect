@@ -66,3 +66,11 @@ class DetectorTest(unittest.TestCase):
         self.assertEqual(len(langlist), 2)
         self.assertEqual(langlist[0], 'lang1')
         self.assertEqual(langlist[1], 'lang2')
+
+    def test_mixed_language_input(self):
+        detect = self.factory.create()
+        detect.append("Merci Gracias")
+        result = detect.detect()
+        self.assertIn(result, ['fr', 'es', 'en'])  
+  
+
