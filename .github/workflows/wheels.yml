@@ -1,0 +1,41 @@
+name: Python wheels
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  release:
+    types: [published]
+permissions:
+  contents: read
+jobs:
+  wheels:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.14", "3.15.0-rc.3"]
+    env:
+      PIP_ONLY_BINARY: ":all:"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: ${{ contains(matrix.python-version, 'rc') }}
+      - name: Build distributions
+        run: |
+          python -m pip install build
+          python -m build
+      - name: Test the installed wheel
+        run: |
+          python -m pip install six
+          python -m pip install --no-index --no-deps dist/*.whl
+          cp -R langdetect/tests "$RUNNER_TEMP/tests"
+          cd "$RUNNER_TEMP"
+          python -m unittest discover -s tests -v
+          python -c "from langdetect import detect, DetectorFactory; DetectorFactory.seed = 0; assert detect('This is a long English sentence about language detection.') == 'en'"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheels-${{ matrix.python-version }}
+          path: dist/
+          if-no-files-found: error
